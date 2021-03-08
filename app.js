@@ -21,6 +21,12 @@ app.get("/count", (req, res) => {
   });
 });
 
+app.get("/list", (req, res) => {
+  fs.readFile("./public/list.txt", "utf8", (err, data) => {
+    res.send(data);
+  });
+});
+
 app.post("/", async (req, res) => {
   const { img, name } = req.body;
   const result = await new Promise((resolve, reject) => {
