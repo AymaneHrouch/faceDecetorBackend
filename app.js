@@ -7,6 +7,14 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
+app.get("/reset", (req, res) => {
+  fs.writeFile("./public/counter.txt", "0", () => {});
+  fs.writeFile("./public/list.txt", "", () => {});
+  fs.rmdirSync("./public/imgs", { recursive: true });
+  fs.mkdirSync("./public/imgs");
+  res.send("RESET!");
+});
+
 app.get("/count", (req, res) => {
   fs.readFile("./public/counter.txt", "utf8", (err, data) => {
     res.send(data);
