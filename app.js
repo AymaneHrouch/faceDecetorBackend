@@ -7,6 +7,12 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
+app.get("/count", (req, res) => {
+  fs.readFile("./public/counter.txt", "utf8", (err, data) => {
+    res.send(data);
+  });
+});
+
 app.post("/", async (req, res) => {
   const { img, name } = req.body;
   const result = await new Promise((resolve, reject) => {
